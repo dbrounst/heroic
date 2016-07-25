@@ -45,7 +45,8 @@ public class NodeClientSetup implements ClientSetup {
 
     @Override
     public Client setup() throws Exception {
-        final Settings settings = Settings.builder()
+        final Settings settings = Settings
+            .builder()
             .put("node.name", InetAddress.getLocalHost().getHostName())
             .put("discovery.zen.ping.multicast.enabled", false)
             .putArray("discovery.zen.ping.unicast.hosts", seeds)

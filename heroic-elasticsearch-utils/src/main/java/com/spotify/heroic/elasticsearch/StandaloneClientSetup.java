@@ -80,7 +80,8 @@ public class StandaloneClientSetup implements ClientSetup {
 
     @Override
     public Client setup() throws Exception {
-        final Settings settings = Settings.builder()
+        final Settings settings = Settings
+            .builder()
             .put("path.logs", root.resolve("logs"))
             .put("path.data", root.resolve("data"))
             .put("node.name", InetAddress.getLocalHost().getHostName())

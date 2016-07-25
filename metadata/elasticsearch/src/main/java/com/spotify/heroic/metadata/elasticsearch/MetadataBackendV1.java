@@ -366,7 +366,8 @@ public class MetadataBackendV1 extends AbstractElasticsearchMetadataBackend
     private <T, O> AsyncFuture<O> entries(
         final Filter filter, final OptionalLimit limit, final DateRange range,
         final Function<SearchHit, T> converter, final Transform<LimitedSet<T>, O> collector,
-        final Consumer<SearchRequestBuilder> modifier) {
+        final Consumer<SearchRequestBuilder> modifier
+    ) {
         return doto(c -> {
             final QueryBuilder f = CTX.filter(filter);
 
@@ -564,13 +565,16 @@ public class MetadataBackendV1 extends AbstractElasticsearchMetadataBackend
 
                     @Override
                     public QueryBuilder visitHasTag(final HasTagFilter hasTag) {
-                        final TermQueryBuilder nested = QueryBuilders.termQuery(tagsKey, hasTag.getTag());
+                        final TermQueryBuilder nested =
+                            QueryBuilders.termQuery(tagsKey, hasTag.getTag());
                         return QueryBuilders.nestedQuery(tags, nested);
                     }
 
                     @Override
                     public QueryBuilder visitMatchKey(final MatchKeyFilter matchKey) {
-                        return QueryBuilders.boolQuery().must(QueryBuilders.termQuery(seriesKey, matchKey.getValue()));
+                        return QueryBuilders
+                            .boolQuery()
+                            .must(QueryBuilders.termQuery(seriesKey, matchKey.getValue()));
                     }
 
                     @Override
